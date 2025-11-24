@@ -5,6 +5,40 @@ const Product = require("./models/product.model");
 const app = express();
 initializeDatabase();
 
+async function getAllProducts() {
+  try {
+    return await Product.find();
+  } catch (error) {
+    throw new Error("Error fetching products: " + error.message);
+  }
+}
+
+// Route to get all products
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await getAllProducts();
+
+    if (products && products.length > 0) {
+      return res.status(200).json({
+        success: true,
+        data: {
+          products,
+        },
+      });
+    } else {
+      return res
+        .status(404)
+        .json({ success: false, message: "No products found." });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in fetching products",
+      error: error.message,
+    });
+  }
+});
+
 app.get("/", (req, res) =>
   res.send({ status: "ok", message: "Ecommerce backend running" })
 );
