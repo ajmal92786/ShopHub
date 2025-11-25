@@ -1,7 +1,8 @@
 const express = require("express");
 const { initializeDatabase } = require("./db/db.connect");
 const Product = require("./models/product.model");
-const Category = require("./models/Category.model");
+const Category = require("./models/category.model");
+const Cart = require("./models/cart.model");
 
 const app = express();
 initializeDatabase();
@@ -140,6 +141,47 @@ app.get("/api/categories/:categoryId", async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Error in fetching category by id",
+      error: error.message,
+    });
+  }
+});
+
+async function getCart(userId) {
+  try {
+    return await Cart.findOne({ userId }).populate(
+      "items.productId",
+      "title price imageUrl"
+    );
+  } catch (error) {
+    throw new Error("Error in fetching cart items: " + error.message);
+  }
+}
+
+// Endpoint to retrieve cart items from the database
+app.get("/api/cart", async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "userId is required",
+      });
+    }
+
+    const cart = await getCart(userId);
+
+    if (!cart) {
+      return res
+        .status(404)
+        .json({ success: false, message: "No items present in the cart." });
+    }
+
+    return res.status(200).json({ success: true, data: { cart } });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in fetching cart items",
       error: error.message,
     });
   }
