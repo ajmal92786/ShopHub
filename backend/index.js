@@ -6,7 +6,8 @@ const Category = require("./models/category.model");
 const Cart = require("./models/cart.model");
 const User = require("./models/user.model");
 const Wishlist = require("./models/wishlist.model");
-const Address = require("./models/Address.model");
+const Address = require("./models/address.model");
+const Order = require("./models/order.model");
 
 const app = express();
 initializeDatabase();
@@ -709,7 +710,16 @@ app.get("/api/addresses", async (req, res) => {
 
 async function createAddress(userId, data) {
   try {
-    return await Address.create({ user: userId, ...data });
+    // If this is the first address → mark as default
+    const existing = await Address.find({ user: userId });
+
+    const newAddress = await Address.create({
+      ...data,
+      user: userId,
+      isDefault: existing.length === 0,
+    });
+
+    return newAddress;
   } catch (error) {
     throw error;
   }
@@ -777,6 +787,129 @@ app.post("/api/addresses", async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Error in adding addresse",
+      error: error.message,
+    });
+  }
+});
+
+async function updateAddress(userId, addressId, data) {
+  try {
+    const address = await Address.findOneAndUpdate(
+      { _id: addressId, user: userId },
+      data,
+      { new: true }
+    );
+
+    return address;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Endpoint to update an address
+app.post("/api/addresses/:addressId", async (req, res) => {
+  try {
+    const {
+      userId,
+      name,
+      phone,
+      pincode,
+      state,
+      city,
+      addressLine,
+      landmark,
+      addressType,
+    } = req.body;
+    const { addressId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID format or user ID is missing",
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(addressId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid address ID format or address ID is missing",
+      });
+    }
+
+    const updatedAddress = await updateAddress(userId, addressId, {
+      name,
+      phone,
+      pincode,
+      state,
+      city,
+      addressLine,
+      landmark,
+      addressType,
+    });
+
+    if (!updatedAddress) {
+      return res.status(404).json({
+        success: false,
+        message: "Address not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Address updated successfully",
+      data: { address: updatedAddress },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in updating address",
+      error: error.message,
+    });
+  }
+});
+
+async function deleteAddress(userId, addressId) {
+  try {
+    const deleted = await Address.findOneAndDelete({
+      _id: addressId,
+      user: userId,
+    });
+
+    return deleted;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Endpoint to remove address from the database
+app.delete("/api/addresses/:addressId", async (req, res) => {
+  try {
+    const { addressId } = req.params;
+    const { userId } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user ID format or user ID is missing",
+      });
+    }
+
+    const deleted = await deleteAddress(userId, addressId);
+
+    console.log(deleted);
+    if (!deleted) {
+      return res
+        .status(404)
+        .json({ success: true, message: "Address not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Address deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in removing address",
       error: error.message,
     });
   }
