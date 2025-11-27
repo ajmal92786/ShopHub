@@ -551,6 +551,117 @@ app.post("/api/wishlist", async (req, res) => {
   }
 });
 
+async function removeItemFromWishlist(userId, productId) {
+  try {
+    const wishlist = await Wishlist.findOne({ user: userId });
+
+    if (!wishlist) {
+      throw new Error("Wishlist not found");
+    }
+
+    const existing = wishlist.items.some(
+      (item) => item.product.toString() === productId
+    );
+
+    if (!existing) {
+      throw new Error("Item not found in wishlist");
+    }
+
+    wishlist.items = wishlist.items.filter(
+      (item) => item.product.toString() !== productId
+    );
+
+    await wishlist.save();
+    return wishlist;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Endpoint to remove item from the wishlist
+app.delete("/api/wishlist/:productId", async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const { userId } = req.body;
+
+    // Validate user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Validate product
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    const updatedWishlist = await removeItemFromWishlist(userId, productId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Item removed successfully from wishlist",
+      wishlist: updatedWishlist,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in removing item from the wishlist",
+      error: error.message,
+    });
+  }
+});
+
+async function clearWishlist(userId) {
+  try {
+    const wishlist = await Wishlist.findOneAndUpdate(
+      { user: userId },
+      { items: [] },
+      { new: true }
+    );
+
+    return wishlist;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Endpoint to clear wishlist
+app.delete("/api/wishlist", async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    // Validate user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const wishlist = await clearWishlist(userId);
+
+    return res.status(200).json({
+      success: true,
+      message: "Wishlist cleared",
+      wishlist,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in clear wishlist",
+      error: error.message,
+    });
+  }
+});
+
 app.get("/", (req, res) =>
   res.send({ status: "ok", message: "Ecommerce backend running." })
 );
