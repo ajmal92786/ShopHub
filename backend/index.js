@@ -915,6 +915,169 @@ app.delete("/api/addresses/:addressId", async (req, res) => {
   }
 });
 
+async function getOrders(userId) {
+  try {
+    return await Order.find({ user: userId })
+      .populate("items.product", "name price imageUrl")
+      .populate("shippingAddress");
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Endpoint to get all orders of a user
+app.get("/api/orders", async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "User ID is missing or Invalid user ID format",
+      });
+    }
+
+    // Validate user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const orders = await getOrders(userId);
+
+    if (!orders || orders.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: "No orders found",
+        data: {
+          orders: [],
+        },
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Orders fetched successfully",
+      data: {
+        orders,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in fetching orders",
+      error: error.message,
+    });
+  }
+});
+
+async function placeOrder(userId, addressId, paymentMethod, paymentStatus) {
+  try {
+    const cart = await Cart.findOne({ userId }).populate(
+      "items.productId",
+      "title price"
+    );
+
+    if (!cart || cart.items.length === 0) {
+      throw new Error("Your cart is empty");
+    }
+
+    // Prepare order items
+    const orderItems = cart.items.map((item) => ({
+      product: item.productId._id,
+      price: item.productId.price,
+      quantity: item.quantity,
+      size: item.size,
+    }));
+
+    // Calculate total amount
+    const totalAmount = orderItems.reduce(
+      (sum, currItem) => sum + currItem.price * currItem.quantity,
+      0
+    );
+
+    // Create order document
+    const order = await Order.create({
+      user: userId,
+      items: orderItems,
+      totalAmount,
+      shippingAddress: addressId,
+      paymentMethod,
+      paymentStatus,
+    });
+
+    // Empty the cart after order
+    await Cart.findOneAndUpdate({ userId }, { items: [] });
+
+    return order;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Endpoint to place order
+app.post("/api/orders", async (req, res) => {
+  try {
+    const { userId, addressId, paymentMethod, paymentStatus } = req.body;
+
+    // Validate Mongo IDs
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid userId",
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(addressId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid addressId",
+      });
+    }
+
+    // Validate user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Validate address
+    const address = await Address.findOne({ _id: addressId, user: userId });
+    if (!address) {
+      return res.status(404).json({
+        success: false,
+        message: "Address not found or does not belong to this user",
+      });
+    }
+
+    // Place order
+    const order = await placeOrder(
+      userId,
+      addressId,
+      paymentMethod,
+      paymentStatus
+    );
+
+    return res.status(201).json({
+      success: true,
+      message: "Order placed successfully",
+      order,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error in placing order",
+      error: error.message,
+    });
+  }
+});
+
 app.get("/", (req, res) =>
   res.send({ status: "ok", message: "Ecommerce backend running." })
 );
