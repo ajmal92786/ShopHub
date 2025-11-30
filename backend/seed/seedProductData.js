@@ -409,6 +409,7 @@ const seedProductData = async () => {
         freeDelivery: true,
         securePayment: true,
       },
+
       // -------- WINTER WEAR --------
       {
         title: "Men's Thermal Fleece Hoodie",
@@ -516,16 +517,84 @@ const seedProductData = async () => {
         securePayment: true,
       },
 
+      // ---------- ELECTRONICS -------
+      {
+        title: "AeroBeat Wireless Bluetooth Headphones",
+        price: 1999,
+        discountPercentage: 18,
+        category: categories[4]._id, // Electronics category
+        sizes: [],
+        rating: 4.4,
+        imageUrl:
+          "https://images.unsplash.com/photo-1579065560489-989b0cc394ce?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZyZWUlMjBCbHVldG9vdGglMjBIZWFkcGhvbmVzJTIwaW1hZ2VzfGVufDB8fDB8fHww",
+        availableQuantity: 80,
+        descriptionPoints: [
+          "IMMERSIVE SOUND: Powerful bass and crystal-clear audio for music lovers.",
+          "NOISE ISOLATION: Soft ear cushions designed for long listening sessions.",
+          "FAST CHARGING: 10-minute quick charge gives 2 hours of playtime.",
+          "UNIVERSAL COMPATIBILITY: Works with all Bluetooth-enabled devices.",
+          "LIGHTWEIGHT DESIGN: Perfect for travel, workouts, and daily use.",
+        ],
+        returnPolicy: { returnable: true, returnDays: 7 },
+        payOnDelivery: true,
+        freeDelivery: true,
+        securePayment: true,
+      },
+      {
+        title: "FitPulse Pro Smartwatch",
+        price: 2799,
+        discountPercentage: 22,
+        category: categories[4]._id,
+        sizes: [],
+        rating: 4.6,
+        imageUrl:
+          "https://images.unsplash.com/photo-1662220727289-27d6b2f10a82?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJlZSUyMHNtYXJ0JTIwd2F0Y2glMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D",
+        availableQuantity: 65,
+        descriptionPoints: [
+          "HEALTH TRACKING: Monitors heart rate, sleep, calories, and steps.",
+          "WATER RESISTANT: Suitable for workouts, swimming, and daily use.",
+          "LONG BATTERY LIFE: Up to 10 days on a single charge.",
+          "REAL-TIME NOTIFICATIONS: Get calls, messages, and app alerts instantly.",
+          "CUSTOM WATCH FACES: Choose from multiple stylish designs.",
+        ],
+        returnPolicy: { returnable: true, returnDays: 10 },
+        payOnDelivery: true,
+        freeDelivery: true,
+        securePayment: true,
+      },
+      {
+        title: "BassBlitz Portable Bluetooth Speaker",
+        price: 1599,
+        discountPercentage: 25,
+        category: categories[4]._id,
+        sizes: [],
+        rating: 4.5,
+        imageUrl:
+          "https://images.unsplash.com/photo-1542193810-9007c21cd37e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnJlZSUyMGJsdXRvb3RoJTIwc3BlYWtlciUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
+        availableQuantity: 100,
+        descriptionPoints: [
+          "DEEP BASS: High-quality sound with enhanced bass technology.",
+          "COMPACT & PORTABLE: Lightweight design perfect for travel and parties.",
+          "DURABLE BUILD: Shock-resistant body for outdoor use.",
+          "ALL-DAY PLAYTIME: Up to 12 hours of continuous playback.",
+          "UNIVERSAL COMPATIBILITY: Works with phones, laptops, tablets, and more.",
+        ],
+        returnPolicy: { returnable: true, returnDays: 7 },
+        payOnDelivery: true,
+        freeDelivery: true,
+        securePayment: true,
+      },
+
       // ---------- BOOKS ----------
       {
         title: "The Silent Echoes",
         price: 499,
         discountPercentage: 15,
-        category: categories[1]._id, // Books category
+        category: categories[5]._id, // Books category
         sizes: [], // Not applicable for books
         rating: 4.7,
         imageUrl:
-          "https://images.unsplash.com/photo-1528207776546-365bb710ee93",
+          "https://images.unsplash.com/photo-1630948197307-26e135c97118?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZnJlZSUyMGJvb2slMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D",
         availableQuantity: 120,
         descriptionPoints: [
           "A HEART-TOUCHING STORY: A deeply emotional fiction novel exploring human relationships.",
@@ -543,7 +612,7 @@ const seedProductData = async () => {
         title: "Rise & Refocus",
         price: 350,
         discountPercentage: 20,
-        category: categories[1]._id,
+        category: categories[5]._id,
         sizes: [],
         rating: 4.5,
         imageUrl:
@@ -565,11 +634,11 @@ const seedProductData = async () => {
         title: "The Midnight Cipher",
         price: 599,
         discountPercentage: 12,
-        category: categories[1]._id,
+        category: categories[5]._id,
         sizes: [],
         rating: 4.6,
         imageUrl:
-          "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4",
+          "https://plus.unsplash.com/premium_photo-1750360905805-5edd9a3ec8b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGZyZWUlMjBib29rJTIwaW1hZ2VzfGVufDB8fDB8fHww",
         availableQuantity: 90,
         descriptionPoints: [
           "GRIPPING THRILLER: A fast-paced mystery with unpredictable twists.",
