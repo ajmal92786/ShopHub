@@ -915,7 +915,7 @@ app.delete("/api/addresses/:addressId", async (req, res) => {
   }
 });
 
-async function getOrders(userId) {
+async function getOrdersForUser(userId) {
   try {
     return await Order.find({ user: userId })
       .populate("items.product", "name price imageUrl")
@@ -946,7 +946,7 @@ app.get("/api/orders", async (req, res) => {
       });
     }
 
-    const orders = await getOrders(userId);
+    const orders = await getOrdersForUser(userId);
 
     if (!orders || orders.length === 0) {
       return res.status(200).json({
