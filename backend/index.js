@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require("cors");
 const { initializeDatabase } = require("./db/db.connect");
 const Product = require("./models/product.model");
 const Category = require("./models/category.model");
@@ -13,6 +14,12 @@ const app = express();
 initializeDatabase();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 async function getAllProducts() {
   try {
