@@ -151,7 +151,7 @@ const seedProductData = async () => {
         sizes: ["M", "L", "XL"],
         rating: 4.6,
         imageUrl:
-          "https://images.unsplash.com/photo-1528701800489-20be3c6e848d",
+          "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
         availableQuantity: 35,
         descriptionPoints: [
           "ULTRA-LIGHTWEIGHT: Designed to feel feather-light for enhanced performance.",
@@ -172,7 +172,8 @@ const seedProductData = async () => {
         category: categories[0]._id,
         sizes: ["M", "L", "XL", "XXL"],
         rating: 4.5,
-        imageUrl: "https://images.unsplash.com/photo-1562158070-622a0a0fc5c8",
+        imageUrl:
+          "https://images.pexels.com/photos/8498401/pexels-photo-8498401.jpeg",
         availableQuantity: 45,
         descriptionPoints: [
           "PREMIUM COTTON: Soft, breathable fabric for unmatched comfort.",
@@ -196,7 +197,7 @@ const seedProductData = async () => {
         sizes: ["S", "M", "L"],
         rating: 4.5,
         imageUrl:
-          "https://images.unsplash.com/photo-1520975922039-b1c8a1f1f3fc",
+          "https://images.pexels.com/photos/10544108/pexels-photo-10544108.jpeg",
         availableQuantity: 30,
         descriptionPoints: [
           "ELEGANT DESIGN: Beautiful floral patterns crafted for a fresh summer look.",
@@ -329,7 +330,7 @@ const seedProductData = async () => {
         sizes: ["S", "M", "L"],
         rating: 4.5,
         imageUrl:
-          "https://images.unsplash.com/photo-1583001307661-8988a7fc6cf3",
+          "https://images.pexels.com/photos/16976200/pexels-photo-16976200.jpeg",
         availableQuantity: 45,
         descriptionPoints: [
           "STRETCHABLE COMFORT: Soft denim designed for playful movement.",
@@ -351,7 +352,7 @@ const seedProductData = async () => {
         sizes: ["S", "M", "L"],
         rating: 4.7,
         imageUrl:
-          "https://images.unsplash.com/photo-1520975698519-59d5a1a1cdeb",
+          "https://images.pexels.com/photos/3933888/pexels-photo-3933888.jpeg",
         availableQuantity: 35,
         descriptionPoints: [
           "SUPER COZY: Warm fleece interior perfect for winter.",
@@ -373,7 +374,7 @@ const seedProductData = async () => {
         sizes: ["S", "M", "L"],
         rating: 4.6,
         imageUrl:
-          "https://images.unsplash.com/photo-1542293787938-c9e299b880b3",
+          "https://images.pexels.com/photos/5622419/pexels-photo-5622419.jpeg",
         availableQuantity: 50,
         descriptionPoints: [
           "HIGH COMFORT: Cushioning designed for active kids.",
@@ -395,7 +396,7 @@ const seedProductData = async () => {
         sizes: ["S", "M", "L"],
         rating: 4.5,
         imageUrl:
-          "https://images.unsplash.com/photo-1631532101236-5c20e1a503a1",
+          "https://images.pexels.com/photos/10566190/pexels-photo-10566190.jpeg",
         availableQuantity: 55,
         descriptionPoints: [
           "ULTRA-SOFT: Cozy cotton perfect for a good night’s sleep.",
@@ -418,7 +419,8 @@ const seedProductData = async () => {
         category: categories[3]._id,
         sizes: ["M", "L", "XL"],
         rating: 4.6,
-        imageUrl: "https://i.ibb.co/YDpjR4G/thermal-hoodie.jpg",
+        imageUrl:
+          "https://images.pexels.com/photos/30086130/pexels-photo-30086130.jpeg",
         availableQuantity: 120,
         descriptionPoints: [
           "ULTIMATE WARMTH: Designed with dual-layer fleece fabric to lock in body heat even in extreme winter chills.",
@@ -439,7 +441,8 @@ const seedProductData = async () => {
         category: categories[3]._id,
         sizes: ["S", "M", "L", "XL"],
         rating: 4.8,
-        imageUrl: "https://i.ibb.co/F7X4Q3r/long-puffer-jacket.jpg",
+        imageUrl:
+          "https://images.pexels.com/photos/20732850/pexels-photo-20732850.jpeg",
         availableQuantity: 80,
         descriptionPoints: [
           "LUXE INSULATION: Filled with ultra-soft synthetic down to provide maximum warmth without extra weight.",
@@ -460,7 +463,8 @@ const seedProductData = async () => {
         category: categories[3]._id,
         sizes: ["S", "M", "L"],
         rating: 4.5,
-        imageUrl: "https://i.ibb.co/f25L8YJ/kids-winter-jacket.jpg",
+        imageUrl:
+          "https://images.pexels.com/photos/20008924/pexels-photo-20008924.jpeg",
         availableQuantity: 90,
         descriptionPoints: [
           "CHILD-SAFE WARMTH: Soft hypoallergenic padding ensures gentle and safe insulation for kids.",
@@ -481,7 +485,8 @@ const seedProductData = async () => {
         category: categories[3]._id,
         sizes: ["M", "L", "XL", "XXL"],
         rating: 4.7,
-        imageUrl: "https://i.ibb.co/3yKS7MP/woolen-sweater.jpg",
+        imageUrl:
+          "https://images.pexels.com/photos/6700120/pexels-photo-6700120.jpeg",
         availableQuantity: 110,
         descriptionPoints: [
           "PREMIUM WOOL BLEND: Crafted from soft, breathable wool fibers that offer natural insulation.",
@@ -502,7 +507,8 @@ const seedProductData = async () => {
         category: categories[3]._id,
         sizes: ["S", "M", "L"],
         rating: 4.9,
-        imageUrl: "https://i.ibb.co/kcW9cwK/fur-lined-cardigan.jpg",
+        imageUrl:
+          "https://images.pexels.com/photos/19655855/pexels-photo-19655855.jpeg",
         availableQuantity: 100,
         descriptionPoints: [
           "ULTRA-SOFT FUR LINING: Plush faux-fur interior keeps you warm while feeling luxuriously soft.",
