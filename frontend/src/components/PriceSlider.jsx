@@ -1,32 +1,26 @@
-import { useState } from "react";
+import useFilterContext from "../contexts/FilterContext";
 
 function PriceSlider() {
-  const [selectedPrice, setSelectedPrice] = useState(1650);
-  console.log(selectedPrice);
+  const { priceRange, setPriceRange } = useFilterContext();
 
   return (
-    <div>
-      <label htmlFor="priceRangeSelector" className="fw-bold">
-        Price
-      </label>
+    <div className="pt-2">
+      <label className="fw-bold">Price</label>
 
-      <div className="pt-2">
-        <input
-          type="range"
-          id="priceRangeSelector"
-          className="w-100"
-          min={500}
-          max={3000}
-          step={100}
-          value={selectedPrice}
-          onChange={(e) => setSelectedPrice(Number(e.target.value))}
-        />
+      <input
+        type="range"
+        className="form-range"
+        min="0"
+        max="5000"
+        step="100"
+        value={priceRange}
+        onChange={(e) => setPriceRange(Number(e.target.value))}
+      />
 
-        <div className="d-flex justify-content-between text-secondary">
-          <span>300</span>
-          <span>1500</span>
-          <span>3000</span>
-        </div>
+      <div className="d-flex justify-content-between text-secondary">
+        <span>0</span>
+        <span>2500</span>
+        <span>5000</span>
       </div>
     </div>
   );

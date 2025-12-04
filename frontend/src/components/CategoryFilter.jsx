@@ -1,32 +1,46 @@
+import useCategoryContext from "../contexts/CategoryContext";
+import useFilterContext from "../contexts/FilterContext";
+
 function CategoryFilter() {
+  const { categories, loading } = useCategoryContext();
+  const { selectedCategories, setSelectedCategories } = useFilterContext();
+
+  const handleCategoryChange = (event) => {
+    const { checked, value } = event.target;
+
+    setSelectedCategories(
+      (prev) =>
+        checked
+          ? [...prev, value] // add category
+          : prev.filter((cat) => cat !== value) // remove category
+    );
+  };
+
   return (
     <div className="pt-3">
-      <label htmlFor="" className="fw-bold">
-        Category
-      </label>
-      <br />
-      <div className="form-check">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          value=""
-          id="checkDefault"
-        />
-        <label className="form-check-label" htmlFor="checkDefault">
-          Men
-        </label>
-      </div>
-      <div className="form-check">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          value=""
-          id="checkChecked"
-          checked
-        />
-        <label className="form-check-label" htmlFor="checkChecked">
-          Women
-        </label>
+      <label className="fw-bold">Category</label>
+
+      <div className="pt-1">
+        {loading && <div>loading...</div>}
+
+        {categories.map((category) => (
+          <div className="form-check" key={category._id}>
+            <input
+              type="checkbox"
+              id={`${category.name}Category`}
+              className="form-check-input"
+              value={category.name}
+              checked={selectedCategories.includes(category.name)}
+              onChange={handleCategoryChange}
+            />
+            <label
+              className="form-check-label"
+              htmlFor={`${category.name}Category`}
+            >
+              {category.name}
+            </label>
+          </div>
+        ))}
       </div>
     </div>
   );

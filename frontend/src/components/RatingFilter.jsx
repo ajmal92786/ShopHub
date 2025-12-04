@@ -1,31 +1,36 @@
+import useFilterContext from "../contexts/FilterContext";
+
 function RatingFilter() {
+  const { selectedRating, setSelectedRating } = useFilterContext();
+
+  const handleRatingChange = (event) => {
+    setSelectedRating(Number(event.target.value));
+  };
+
   return (
     <div className="pt-3">
-      <label htmlFor="" className="fw-bold">
-        Rating
-      </label>
-      <div className="form-check">
-        <input
-          className="form-check-input"
-          type="radio"
-          name="radioDefault"
-          id="radioDefault1"
-        />
-        <label className="form-check-label" htmlFor="radioDefault1">
-          Default radio
-        </label>
-      </div>
-      <div className="form-check">
-        <input
-          className="form-check-input"
-          type="radio"
-          name="radioDefault"
-          id="radioDefault2"
-          checked
-        />
-        <label className="form-check-label" htmlFor="radioDefault2">
-          Default checked radio
-        </label>
+      <label className="fw-bold">Rating</label>
+
+      <div className="pt-1">
+        {[4, 3, 2, 1].map((rating) => (
+          <div className="form-check" key={rating}>
+            <input
+              type="radio"
+              name="ratingFilter"
+              id={`ratingFilter-${rating}`}
+              className="form-check-input"
+              value={rating}
+              checked={selectedRating === rating}
+              onChange={handleRatingChange}
+            />
+            <label
+              className="form-check-label"
+              htmlFor={`ratingFilter-${rating}`}
+            >
+              {rating} Stars & above
+            </label>
+          </div>
+        ))}
       </div>
     </div>
   );

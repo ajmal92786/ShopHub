@@ -1,9 +1,12 @@
 import { IoMdStar } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
+import { useState } from "react";
 
 function ProductCard({ product }) {
+  const [selectedSize, setSelectedSize] = useState(null);
+
   return (
-    <div className="card mb-3 position-relative">
+    <div className="card h-100 shadow-sm rounded position-relative">
       <button className="m-1 bg-transparent border-0 text-white position-absolute top-0 end-0">
         <FaRegHeart size={22} />
       </button>
@@ -12,11 +15,12 @@ function ProductCard({ product }) {
         src={product.imageUrl}
         alt={product.title}
         className="card-img-top object-fit-cover"
-        style={{ height: "250px" }}
+        style={{ height: "220px" }}
       />
 
-      <div className="card-body">
+      <div className="card-body d-flex flex-column">
         <h5 className="card-title text-truncate">{product.title}</h5>
+
         <div className="mb-3 card-text d-flex justify-content-between align-items-center">
           <span className="fw-bold">₹{product.price}</span>
           <span
@@ -26,9 +30,24 @@ function ProductCard({ product }) {
             {product.rating} <IoMdStar className="ms-1" />
           </span>
         </div>
-        <button type="button" className="w-100 btn btn-warning">
-          Add to cart
-        </button>
+
+        {product?.sizes?.length > 0 && (
+          <div className="mb-3 d-flex flex-wrap gap-2">
+            {product.sizes.map((size) => (
+              <button
+                key={size}
+                onClick={() => setSelectedSize(size)}
+                className={`btn btn-sm rounded-pill p-0 px-2 ${
+                  selectedSize === size ? "btn-dark" : "btn-outline-dark"
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <button className="w-100 mt-auto btn btn-warning">Add to cart</button>
       </div>
     </div>
   );

@@ -2,13 +2,21 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import { FilterProvider } from "./contexts/FilterContext";
 import { CategoryProvider } from "./contexts/CategoryContext";
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
-  { path: "/products/:category", element: <ProductsPage /> },
+  {
+    path: "/products/:category",
+    element: (
+      <FilterProvider>
+        <ProductsPage />
+      </FilterProvider>
+    ),
+  },
 ]);
 
 function App() {
