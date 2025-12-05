@@ -149,7 +149,7 @@ const seedProductData = async () => {
         discountPercentage: 12,
         category: categories[0]._id,
         sizes: ["M", "L", "XL"],
-        rating: 4.6,
+        rating: 3.6,
         imageUrl:
           "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg",
         availableQuantity: 35,
@@ -171,7 +171,7 @@ const seedProductData = async () => {
         discountPercentage: 10,
         category: categories[0]._id,
         sizes: ["M", "L", "XL", "XXL"],
-        rating: 4.5,
+        rating: 2.5,
         imageUrl:
           "https://images.pexels.com/photos/8498401/pexels-photo-8498401.jpeg",
         availableQuantity: 45,
@@ -239,7 +239,7 @@ const seedProductData = async () => {
         discountPercentage: 20,
         category: categories[1]._id,
         sizes: ["S", "M", "L", "XL"],
-        rating: 4.8,
+        rating: 3.8,
         imageUrl:
           "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
         availableQuantity: 20,
@@ -261,7 +261,7 @@ const seedProductData = async () => {
         discountPercentage: 18,
         category: categories[1]._id,
         sizes: ["M"],
-        rating: 4.4,
+        rating: 3.4,
         imageUrl:
           "https://images.pexels.com/photos/904350/pexels-photo-904350.jpeg",
         availableQuantity: 50,
@@ -279,11 +279,11 @@ const seedProductData = async () => {
       },
       {
         title: "Women's Casual Sneakers",
-        price: 1599,
+        price: 699,
         discountPercentage: 12,
         category: categories[1]._id,
         sizes: ["S", "M", "L"],
-        rating: 4.6,
+        rating: 2.1,
         imageUrl:
           "https://images.unsplash.com/photo-1519741497674-611481863552",
         availableQuantity: 40,
@@ -351,7 +351,7 @@ const seedProductData = async () => {
         discountPercentage: 12,
         category: categories[2]._id,
         sizes: ["S", "M", "L"],
-        rating: 4.7,
+        rating: 3.7,
         imageUrl:
           "https://images.pexels.com/photos/3933888/pexels-photo-3933888.jpeg",
         availableQuantity: 35,
@@ -373,7 +373,7 @@ const seedProductData = async () => {
         discountPercentage: 15,
         category: categories[2]._id,
         sizes: ["S", "M", "L"],
-        rating: 4.6,
+        rating: 3.6,
         imageUrl:
           "https://images.pexels.com/photos/5622419/pexels-photo-5622419.jpeg",
         availableQuantity: 50,
@@ -391,11 +391,11 @@ const seedProductData = async () => {
       },
       {
         title: "Kids Printed Night Suit",
-        price: 699,
+        price: 2399,
         discountPercentage: 10,
         category: categories[2]._id,
         sizes: ["S", "M", "L"],
-        rating: 4.5,
+        rating: 2.5,
         imageUrl:
           "https://images.pexels.com/photos/10566190/pexels-photo-10566190.jpeg",
         availableQuantity: 55,
@@ -437,7 +437,7 @@ const seedProductData = async () => {
       },
       {
         title: "Women's Long Puffer Jacket",
-        price: 3999,
+        price: 2999,
         discountPercentage: 18,
         category: categories[3]._id,
         sizes: ["S", "M", "L", "XL"],
@@ -463,7 +463,7 @@ const seedProductData = async () => {
         discountPercentage: 10,
         category: categories[3]._id,
         sizes: ["S", "M", "L"],
-        rating: 4.5,
+        rating: 3.5,
         imageUrl:
           "https://images.pexels.com/photos/20008924/pexels-photo-20008924.jpeg",
         availableQuantity: 90,
@@ -485,7 +485,7 @@ const seedProductData = async () => {
         discountPercentage: 15,
         category: categories[3]._id,
         sizes: ["M", "L", "XL", "XXL"],
-        rating: 4.7,
+        rating: 3.7,
         imageUrl:
           "https://images.pexels.com/photos/6700120/pexels-photo-6700120.jpeg",
         availableQuantity: 110,
@@ -507,7 +507,7 @@ const seedProductData = async () => {
         discountPercentage: 20,
         category: categories[3]._id,
         sizes: ["S", "M", "L"],
-        rating: 4.9,
+        rating: 1.9,
         imageUrl:
           "https://images.pexels.com/photos/19655855/pexels-photo-19655855.jpeg",
         availableQuantity: 100,
@@ -553,7 +553,7 @@ const seedProductData = async () => {
         discountPercentage: 22,
         category: categories[4]._id,
         sizes: [],
-        rating: 4.6,
+        rating: 3.3,
         imageUrl:
           "https://images.unsplash.com/photo-1662220727289-27d6b2f10a82?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZnJlZSUyMHNtYXJ0JTIwd2F0Y2glMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D",
         availableQuantity: 65,
@@ -575,7 +575,7 @@ const seedProductData = async () => {
         discountPercentage: 25,
         category: categories[4]._id,
         sizes: [],
-        rating: 4.5,
+        rating: 2.5,
         imageUrl:
           "https://images.unsplash.com/photo-1542193810-9007c21cd37e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnJlZSUyMGJsdXRvb3RoJTIwc3BlYWtlciUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
         availableQuantity: 100,
@@ -621,7 +621,7 @@ const seedProductData = async () => {
         discountPercentage: 20,
         category: categories[5]._id,
         sizes: [],
-        rating: 4.5,
+        rating: 3.5,
         imageUrl:
           "https://images.unsplash.com/photo-1495446815901-a7297e633e8d",
         availableQuantity: 200,
@@ -639,11 +639,11 @@ const seedProductData = async () => {
       },
       {
         title: "The Midnight Cipher",
-        price: 599,
+        price: 1599,
         discountPercentage: 12,
         category: categories[5]._id,
         sizes: [],
-        rating: 4.6,
+        rating: 2.6,
         imageUrl:
           "https://plus.unsplash.com/premium_photo-1750360905805-5edd9a3ec8b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGZyZWUlMjBib29rJTIwaW1hZ2VzfGVufDB8fDB8fHww",
         availableQuantity: 90,

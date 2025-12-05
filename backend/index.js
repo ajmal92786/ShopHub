@@ -1270,6 +1270,28 @@ app.get("/api/orders/:orderId", async (req, res) => {
   }
 });
 
+async function getUserInfo(email) {
+  return await User.findOne({ email });
+}
+
+app.get("/api/user", async (req, res) => {
+  try {
+    const { email } = req.query;
+    const userInfo = await getUserInfo(email);
+
+    if (!userInfo) {
+      return res.status(404).json({ success: true, message: "User not found" });
+    }
+
+    return res.status(200).json({ success: true, user: userInfo });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message || "Error in fetching user info",
+    });
+  }
+});
+
 app.get("/", (req, res) =>
   res.send({ status: "ok", message: "Ecommerce backend running." })
 );
