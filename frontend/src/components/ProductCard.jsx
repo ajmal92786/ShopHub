@@ -1,12 +1,18 @@
-import { IoMdStar } from "react-icons/io";
-import { FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaRegHeart } from "react-icons/fa";
+import { IoMdStar } from "react-icons/io";
 
 function ProductCard({ product }) {
   const [selectedSize, setSelectedSize] = useState(null);
+  const navigate = useNavigate();
 
   return (
-    <div className="card h-100 shadow-sm rounded position-relative">
+    <div
+      className="card h-100 shadow-sm rounded position-relative"
+      style={{ cursor: "pointer" }}
+      onClick={() => navigate(`/products/details/${product._id}`)}
+    >
       <button className="m-1 bg-transparent border-0 text-white position-absolute top-0 end-0">
         <FaRegHeart size={22} />
       </button>
