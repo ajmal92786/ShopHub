@@ -16,13 +16,11 @@ function ProductDetailsPage() {
   const { productId } = useParams();
 
   const { data, loading, error } = useFetch(`/api/products/${productId}`);
-
   const product = data?.data?.product;
 
   function calculatePriceAfterDiscount(originalPrice, discountPercentage) {
     const discount = discountPercentage / 100;
     const discountedPrice = originalPrice - originalPrice * discount;
-
     return Math.floor(discountedPrice);
   }
 
@@ -58,7 +56,9 @@ function ProductDetailsPage() {
 
             <div className="col-12 col-md-8">
               <div>
-                <div className="fs-4 fw-semibold">{product.title}</div>
+                <section>
+                  <h1 className="fs-4 fw-semibold">{product.title}</h1>
+                </section>
 
                 <div className="d-flex align-items-center">
                   <span aria-label={`Rating ${product.rating} stars`}>
@@ -67,21 +67,21 @@ function ProductDetailsPage() {
                   <IoMdStar size={20} className="ms-1 text-warning" />
                 </div>
 
-                <div className="py-3">
+                <section className="py-3">
                   <div className="fw-bold fs-5">
-                    ₹{product.price}
+                    ₹
+                    {calculatePriceAfterDiscount(
+                      product.price,
+                      product.discountPercentage
+                    )}
                     <span className="fw-bold fs-6 text-muted ms-2 text-decoration-line-through">
-                      ₹
-                      {calculatePriceAfterDiscount(
-                        product.price,
-                        product.discountPercentage
-                      )}
+                      ₹{product.price}
                     </span>
                   </div>
                   <div className="text-muted fw-semibold">
                     {product.discountPercentage}% off
                   </div>
-                </div>
+                </section>
 
                 <section className="d-flex align-items-center">
                   <label className="fw-bold me-2">Quantity:</label>
@@ -139,7 +139,7 @@ function ProductDetailsPage() {
 
               <hr />
 
-              <div className="d-flex gap-4">
+              <section aria-label="Product features" className="d-flex gap-4">
                 {product?.returnPolicy?.returnable && (
                   <div className="d-flex flex-column justify-content-center align-items-center">
                     <TbTruckReturn size={40} className="text-secondary" />
@@ -167,7 +167,7 @@ function ProductDetailsPage() {
                     </div>
                   </div>
                 )}
-                {product?.freeDelivery && (
+                {product?.securePayment && (
                   <div className="d-flex flex-column justify-content-center align-items-center">
                     <RiSecurePaymentLine size={40} className="text-secondary" />
                     <div className="d-flex flex-column justify-content-center align-items-center">
@@ -176,11 +176,11 @@ function ProductDetailsPage() {
                     </div>
                   </div>
                 )}
-              </div>
+              </section>
 
               <hr />
 
-              <div>
+              <section>
                 <div className="fw-bold">Description:</div>
                 {product?.descriptionPoints?.length > 0 && (
                   <ul>
@@ -189,7 +189,7 @@ function ProductDetailsPage() {
                     ))}
                   </ul>
                 )}
-              </div>
+              </section>
             </div>
           </div>
         )}
