@@ -51,7 +51,7 @@ app.get("/api/products", async (req, res) => {
 
 async function getProductById(productId) {
   try {
-    return await Product.findById(productId);
+    return await Product.findById(productId).populate("category", "name");
   } catch (error) {
     throw error;
   }
@@ -302,10 +302,7 @@ app.post("/api/cart", async (req, res) => {
 
 async function updateQuantity(userId, productId, quantity, size) {
   try {
-    const cart = await Cart.findOne({ userId }).populate(
-      "items.productId",
-      "title price imageUrl discountPercentage"
-    );
+    const cart = await Cart.findOne({ userId });
 
     if (!cart) {
       throw new Error("Cart not found");
@@ -322,6 +319,11 @@ async function updateQuantity(userId, productId, quantity, size) {
     cart.items[index].quantity = quantity;
 
     await cart.save();
+    await cart.populate(
+      "items.productId",
+      "title price imageUrl discountPercentage"
+    );
+
     return cart;
   } catch (error) {
     throw error;
@@ -447,10 +449,14 @@ app.delete("/api/cart/:productId", async (req, res) => {
 
 async function getWishlist(userId) {
   try {
-    return await Wishlist.findOne({ user: userId }).populate(
-      "items.product",
-      "title price sizes imageUrl"
-    );
+    return await Wishlist.findOne({ user: userId }).populate({
+      path: "items.product",
+      select: "title price sizes imageUrl category",
+      populate: {
+        path: "category",
+        select: "name",
+      },
+    });
   } catch (error) {
     throw error;
   }
@@ -515,6 +521,7 @@ async function addToWishlist(userId, productId) {
         ],
       });
 
+      await wishlist.populate("items.product", "title price sizes imageUrl");
       return wishlist;
     }
 
@@ -529,6 +536,8 @@ async function addToWishlist(userId, productId) {
     wishlist.items.push({ product: productId });
 
     await wishlist.save();
+    await wishlist.populate("items.product", "title price sizes imageUrl");
+
     return wishlist;
   } catch (error) {
     throw error;
@@ -594,6 +603,7 @@ async function removeItemFromWishlist(userId, productId) {
     );
 
     await wishlist.save();
+    await wishlist.populate("items.product", "title price sizes imageUrl");
     return wishlist;
   } catch (error) {
     throw error;
