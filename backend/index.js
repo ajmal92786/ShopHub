@@ -762,11 +762,11 @@ app.post("/api/addresses", async (req, res) => {
       userId,
       name,
       phone,
-      pincode,
-      state,
-      city,
       addressLine,
       landmark,
+      pincode,
+      city,
+      state,
       addressType,
       isDefault,
     } = req.body;
@@ -900,12 +900,12 @@ app.post("/api/addresses/:addressId", async (req, res) => {
 
 async function deleteAddress(userId, addressId) {
   try {
-    const deleted = await Address.findOneAndDelete({
+    const deletedAddress = await Address.findOneAndDelete({
       _id: addressId,
       user: userId,
     });
 
-    return deleted;
+    return deletedAddress;
   } catch (error) {
     throw error;
   }
@@ -924,10 +924,9 @@ app.delete("/api/addresses/:addressId", async (req, res) => {
       });
     }
 
-    const deleted = await deleteAddress(userId, addressId);
+    const deletedAddress = await deleteAddress(userId, addressId);
 
-    console.log(deleted);
-    if (!deleted) {
+    if (!deletedAddress) {
       return res
         .status(404)
         .json({ success: true, message: "Address not found" });
@@ -935,7 +934,11 @@ app.delete("/api/addresses/:addressId", async (req, res) => {
 
     return res
       .status(200)
-      .json({ success: true, message: "Address deleted successfully" });
+      .json({
+        success: true,
+        message: "Address deleted successfully",
+        address: deletedAddress,
+      });
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -1004,12 +1007,19 @@ app.get("/api/orders", async (req, res) => {
   }
 });
 
-async function placeOrder(userId, addressId, paymentMethod, paymentStatus) {
+async function placeOrder(
+  userId,
+  addressId,
+  deliveryCharges,
+  paymentMethod,
+  paymentStatus
+) {
   try {
     const cart = await Cart.findOne({ userId }).populate(
       "items.productId",
-      "title price"
+      "title price discountPercentage"
     );
+    console.log("cart items coming to backend: ", cart.items);
 
     if (!cart || cart.items.length === 0) {
       throw new Error("Your cart is empty");
@@ -1018,16 +1028,19 @@ async function placeOrder(userId, addressId, paymentMethod, paymentStatus) {
     // Prepare order items
     const orderItems = cart.items.map((item) => ({
       product: item.productId._id,
-      price: item.productId.price,
+      price:
+        item.productId.price -
+        (item.productId.price * item.productId.discountPercentage) / 100,
       quantity: item.quantity,
       size: item.size,
     }));
 
     // Calculate total amount
-    const totalAmount = orderItems.reduce(
-      (sum, currItem) => sum + currItem.price * currItem.quantity,
-      0
-    );
+    const totalAmount =
+      orderItems.reduce(
+        (sum, currItem) => sum + currItem.price * currItem.quantity,
+        0
+      ) + deliveryCharges;
 
     // Create order document
     const order = await Order.create({
@@ -1051,7 +1064,8 @@ async function placeOrder(userId, addressId, paymentMethod, paymentStatus) {
 // Endpoint to place order for cart items
 app.post("/api/orders", async (req, res) => {
   try {
-    const { userId, addressId, paymentMethod, paymentStatus } = req.body;
+    const { userId, addressId, deliveryCharges, paymentMethod, paymentStatus } =
+      req.body;
 
     // Validate Mongo IDs
     if (!mongoose.Types.ObjectId.isValid(userId)) {
@@ -1090,6 +1104,7 @@ app.post("/api/orders", async (req, res) => {
     const order = await placeOrder(
       userId,
       addressId,
+      deliveryCharges,
       paymentMethod,
       paymentStatus
     );
@@ -1100,6 +1115,8 @@ app.post("/api/orders", async (req, res) => {
       order,
     });
   } catch (error) {
+    console.log("Error: ", error);
+
     return res.status(500).json({
       success: false,
       message: "Error in placing order",
@@ -1239,7 +1256,9 @@ app.post("/api/orders/buy-now", async (req, res) => {
 
 async function getOrderById(userId, orderId) {
   try {
-    return await Order.findOne({ _id: orderId, user: userId });
+    return await Order.findOne({ _id: orderId, user: userId })
+      .populate("items.product", "title imageUrl price")
+      .populate("shippingAddress");
   } catch (error) {
     throw error;
   }

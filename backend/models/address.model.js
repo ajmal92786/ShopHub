@@ -16,8 +16,8 @@ const addressSchema = new mongoose.Schema(
     landmark: { type: String },
     addressType: {
       type: String,
-      enum: ["home", "work", "other"],
-      default: "home",
+      enum: ["Home", "Work", "Other"],
+      default: "Home",
     },
     isDefault: { type: Boolean, default: false },
   },
