@@ -4,22 +4,30 @@ import ProductCard from "./ProductCard";
 
 function ProductsGrid() {
   const { data, loading, error } = useFetch("/api/products");
-  const { priceRange, selectedCategories, selectedRating, sortBy } =
-    useFilterContext();
+  const {
+    priceRange,
+    selectedCategories,
+    selectedRating,
+    sortBy,
+    searchQuery,
+  } = useFilterContext();
 
   let products = data?.data?.products || [];
 
-  // Apply price, category and rating filters
+  // Apply price, category, search and rating filters
   let filteredProducts = products.filter((product) => {
     const matchesPrice = product.price <= priceRange;
-
     const matchesCategory =
-      selectedCategories.length !== 0 &&
+      selectedCategories.length === 0 ||
       selectedCategories.includes(product.category.name);
 
     const matchesRating = !selectedRating || product.rating >= selectedRating;
 
-    return matchesPrice && matchesCategory && matchesRating;
+    const matchesSearch = product.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    return matchesPrice && matchesCategory && matchesRating && matchesSearch;
   });
 
   // Sorting logic

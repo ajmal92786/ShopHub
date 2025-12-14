@@ -22,11 +22,7 @@ const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   {
     path: "/products/:category",
-    element: (
-      <FilterProvider>
-        <ProductsPage />
-      </FilterProvider>
-    ),
+    element: <ProductsPage />,
   },
   { path: "/products/details/:productId", element: <ProductDetailsPage /> },
   { path: "/cart", element: <CartPage /> },
@@ -44,7 +40,9 @@ function App() {
           <WishlistProvider>
             <CategoryProvider>
               <AddressProvider>
-                <RouterProvider router={router} />
+                <FilterProvider>
+                  <RouterProvider router={router} />
+                </FilterProvider>
               </AddressProvider>
             </CategoryProvider>
           </WishlistProvider>

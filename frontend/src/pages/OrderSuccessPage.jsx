@@ -15,8 +15,6 @@ function OrderSuccessPage() {
   const navigate = useNavigate();
   const { orderId } = useParams();
 
-  console.log("orderDetails: ", orderDetails);
-
   const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const calculateTotalAmountBeforeDiscount = (items) => {

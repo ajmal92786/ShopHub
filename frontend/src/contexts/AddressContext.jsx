@@ -135,7 +135,6 @@ export function AddressProvider({ children }) {
 
       const json = await res.json();
 
-      console.log("json: ", json);
       setAddresses((prevVal) =>
         prevVal.filter((address) => address._id !== json?.address._id)
       );

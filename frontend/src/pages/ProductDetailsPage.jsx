@@ -105,9 +105,8 @@ function ProductDetailsPage() {
                     className="img-fluid w-100 h-100 object-fit-cover"
                   />
                 </div>
-                <button className="my-2 btn btn-warning">Buy Now</button>
                 <button
-                  className="btn btn-dark"
+                  className="my-2 btn btn-dark"
                   onClick={() =>
                     handleAddToCart(product._id, selectedSize, quantity)
                   }

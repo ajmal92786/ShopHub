@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useCategoryContext from "./CategoryContext";
 
 const FilterContext = createContext();
 
@@ -12,27 +11,19 @@ export function FilterProvider({ children }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedRating, setSelectedRating] = useState(null);
   const [sortBy, setSortBy] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const { category } = useParams();
-  const { categories } = useCategoryContext();
-
-  const resetFilters = () => {
+  const resetFilters = (category) => {
     setPriceRange(5000);
-    setSelectedCategories([category]);
     setSelectedRating(null);
     setSortBy("");
-  };
 
-  useEffect(() => {
-    if (!category || categories.length === 0) return;
-
-    const categoryExists = categories.some((cat) => cat.name === category);
-    if (categoryExists) {
+    if (category && category !== "all") {
       setSelectedCategories([category]);
     } else {
       setSelectedCategories([]);
     }
-  }, [category, categories]);
+  };
 
   return (
     <FilterContext.Provider
@@ -45,6 +36,8 @@ export function FilterProvider({ children }) {
         setSelectedRating,
         sortBy,
         setSortBy,
+        searchQuery,
+        setSearchQuery,
         resetFilters,
       }}
     >

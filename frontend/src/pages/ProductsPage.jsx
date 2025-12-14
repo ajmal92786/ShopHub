@@ -1,9 +1,23 @@
+import { useParams } from "react-router-dom";
 import FiltersComponent from "../components/FiltersComponent";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ProductsGrid from "../components/ProductsGrid";
+import useFilterContext from "../contexts/FilterContext";
+import { useEffect } from "react";
 
 function ProductsPage() {
+  const { setSelectedCategories } = useFilterContext();
+  const { category } = useParams();
+
+  useEffect(() => {
+    if (category && category !== "all") {
+      setSelectedCategories([category]);
+    } else {
+      setSelectedCategories([]);
+    }
+  }, [category]);
+
   return (
     <>
       <Header />

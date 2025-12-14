@@ -1,13 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import useCartContext from "../contexts/CartContext";
 import useWishlistContext from "../contexts/WishlistContext";
+import useFilterContext from "../contexts/FilterContext";
 
 function Header() {
+  const { searchQuery, setSearchQuery } = useFilterContext();
   const { cart } = useCartContext();
   const { wishlist } = useWishlistContext();
+
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/products/all?search=${searchQuery}`);
+  };
 
   return (
     <header className="bg-white shadow-sm">
@@ -49,13 +58,15 @@ function Header() {
             <form
               className="d-flex mx-auto mt-3 mt-lg-0 w-100"
               style={{ maxWidth: "500px" }}
+              onSubmit={handleSearchSubmit}
             >
               <input
                 type="text"
                 className="form-control rounded-start shadow-none"
                 placeholder="Search for products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
-              {/* <button className="btn btn-primary rounded-end">Search</button> */}
             </form>
 
             <ul className="navbar-nav ms-auto d-none d-lg-flex flex-row gap-3 align-items-center">
