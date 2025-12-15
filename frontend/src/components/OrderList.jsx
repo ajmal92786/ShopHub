@@ -20,7 +20,11 @@ function OrderList({ userId }) {
               ))}
             </div>
           ) : (
-            <div>It looks like you haven't placed any orders yet.</div>
+            <div className="text-center">
+              <p className="text-danger fw-semibold fs-5">
+                It looks like you haven't placed any orders yet.
+              </p>
+            </div>
           )}
         </>
       )}

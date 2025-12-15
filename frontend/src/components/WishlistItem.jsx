@@ -50,7 +50,7 @@ function WishlistItem({ item }) {
       <div className="card-body text-center d-flex flex-column justify-content-between">
         <h6 className="card-title text-truncate">{item.product.title}</h6>
         <div className="card-text fw-bold">₹{item.product.price}</div>
-        {item?.product?.sizes.length > 0 ? (
+        {item?.product?.sizes.length > 0 && (
           <div className="mt-2 d-flex justify-content-center gap-2">
             {item.product.sizes.map((size, index) => (
               <button
@@ -64,12 +64,10 @@ function WishlistItem({ item }) {
               </button>
             ))}
           </div>
-        ) : null}
+        )}
         <button
           className="mt-3 w-100 btn btn-sm btn-primary"
-          onClick={() =>
-            handleAddToCart(item.product._id, selectedSize, 1, item.category)
-          }
+          onClick={() => handleAddToCart(item.product._id, selectedSize, 1)}
         >
           Move to Cart
         </button>
