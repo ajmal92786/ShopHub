@@ -20,7 +20,7 @@ function OrderList({ userId }) {
               ))}
             </div>
           ) : (
-            <div>No orders found.</div>
+            <div>It looks like you haven't placed any orders yet.</div>
           )}
         </>
       )}

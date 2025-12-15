@@ -1,13 +1,3 @@
-// function Footer() {
-//   return (
-//     <footer>
-//       <div className="container">Footer</div>
-//     </footer>
-//   );
-// }
-
-// export default Footer;
-
 import { Link } from "react-router-dom";
 import {
   FaFacebook,
@@ -107,7 +97,7 @@ function Footer() {
               <Link to="/" className="text-light fs-5">
                 <FaFacebook size={24} />
               </Link>
-              <Link to="https://x.com/Ajmal92786" className="text-light fs-5">
+              <Link to="https:x.com/Ajmal92786" className="text-light fs-5">
                 <FaTwitter size={24} />
               </Link>
               <Link to="/" className="text-light fs-5">
