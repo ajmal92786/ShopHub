@@ -33,7 +33,7 @@ function CartItem({ cartItem }) {
   };
 
   return (
-    <div className="card border-0">
+    <div className="card border-0 mb-5">
       <div className="row g-0">
         <div className="col-md-4" style={{ height: "40vh" }}>
           <img
@@ -80,8 +80,7 @@ function CartItem({ cartItem }) {
                   </button>
 
                   <input
-                    type="number"
-                    min="1"
+                    type="text"
                     value={newQuantity}
                     readOnly
                     className="fw-bold form-control text-center"
@@ -98,7 +97,7 @@ function CartItem({ cartItem }) {
                 </div>
               </div>
             </div>
-            <div className="">
+            <div className="mt-3">
               <button
                 className="me-2 btn btn-sm btn-secondary"
                 onClick={() => handleRemoveFromCart(productId._id, size)}

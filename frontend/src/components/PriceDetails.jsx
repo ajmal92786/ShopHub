@@ -12,7 +12,7 @@ function PriceDetails() {
   };
 
   return (
-    <div className="bg-white p-3 mt-5 rounded">
+    <div className="bg-white p-3 rounded">
       <h6 className="fw-bold">PRICE DETAILS</h6>
       <hr />
 

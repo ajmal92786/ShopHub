@@ -543,10 +543,9 @@ async function addToWishlist(userId, productId) {
       "title price sizes imageUrl category"
     );
 
-    return await categoryPopulatedWishlist.populate(
-      "items.product.category",
-      "name"
-    );
+    await categoryPopulatedWishlist.populate("items.product.category", "name");
+
+    return categoryPopulatedWishlist;
   } catch (error) {
     throw error;
   }
@@ -611,8 +610,15 @@ async function removeItemFromWishlist(userId, productId) {
     );
 
     await wishlist.save();
-    await wishlist.populate("items.product", "title price sizes imageUrl");
-    return wishlist;
+
+    const categoryPopulatedWishlist = await wishlist.populate(
+      "items.product",
+      "title price sizes imageUrl category"
+    );
+
+    await categoryPopulatedWishlist.populate("items.product.category", "name");
+
+    return categoryPopulatedWishlist;
   } catch (error) {
     throw error;
   }
