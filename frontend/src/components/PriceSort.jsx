@@ -16,9 +16,7 @@ function PriceSort() {
           checked={sortBy === "lowToHigh"}
           onChange={() => setSortBy("lowToHigh")}
         />
-        <label className="form-check-label" htmlFor="sortLowToHigh">
-          Price - Low to High
-        </label>
+        <label htmlFor="sortLowToHigh">Price - Low to High</label>
       </div>
 
       <div>

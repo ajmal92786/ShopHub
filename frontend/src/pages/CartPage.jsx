@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CartItem from "../components/CartItem";
 import { TiShoppingCart } from "react-icons/ti";
-import loadingImg from "../assets/modern_loader.webp";
+import loadingImage from "../assets/modern_loader.webp";
 import PriceDetails from "../components/PriceDetails";
 
 function CartPage() {
@@ -19,10 +19,13 @@ function CartPage() {
       <main className="py-3 bg-light" style={{ minHeight: "90vh" }}>
         <div className="container">
           {loading && (
-            <div className="text-center">
-              <img src={loadingImg} alt="Loading Image" className="img-fluid" />
+            <div className="w-100 h-100 py-5 d-flex justify-content-center">
+              <div style={{ width: "30px", height: "30px" }}>
+                <img src={loadingImage} alt="loader" className="w-100 h-1" />
+              </div>
             </div>
           )}
+
           {!loading && error && (
             <p className="text-center text-danger">
               Something went wrong. Please try again.

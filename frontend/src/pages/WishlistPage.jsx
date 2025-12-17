@@ -1,10 +1,10 @@
+import { useNavigate } from "react-router-dom";
+import useWishlistContext from "../contexts/WishlistContext";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import useWishlistContext from "../contexts/WishlistContext";
-import loadingImg from "../assets/modern_loader.webp";
 import WishlistItem from "../components/WishlistItem";
+import loadingImage from "../assets/modern_loader.webp";
 import { TbShoppingBagHeart } from "react-icons/tb";
-import { useNavigate } from "react-router-dom";
 
 function WishlistPage() {
   const { wishlist, loading, error } = useWishlistContext();
@@ -15,9 +15,15 @@ function WishlistPage() {
       <Header />
       <main className="py-3 bg-light" style={{ minHeight: "85vh" }}>
         <div className="container">
+          <section className="mb-5">
+            <h4 className="fw-bold text-center">My Wishlist</h4>
+          </section>
+
           {loading && (
-            <div className="text-center">
-              <img src={loadingImg} alt="Laoding gif" />
+            <div className="w-100 h-100 py-5 d-flex justify-content-center">
+              <div style={{ width: "35px", height: "35px" }}>
+                <img src={loadingImage} alt="loader" className="w-100 h-1" />
+              </div>
             </div>
           )}
 
@@ -29,9 +35,6 @@ function WishlistPage() {
             <>
               {wishlist && wishlist.items.length > 0 ? (
                 <>
-                  <section className="mb-5">
-                    <h4 className="fw-bold text-center">My Wishlist</h4>
-                  </section>
                   <div className="row g-4">
                     {wishlist.items.map((item) => (
                       <div

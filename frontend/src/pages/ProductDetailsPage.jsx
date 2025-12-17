@@ -13,7 +13,7 @@ import useCartContext from "../contexts/CartContext";
 import useToastContext from "../contexts/ToastContext";
 import { calculatePriceAfterDiscount } from "../utils/utils";
 import useWishlistContext from "../contexts/WishlistContext";
-import loadingImg from "../assets/modern_loader.webp";
+import loadingImage from "../assets/modern_loader.webp";
 
 function ProductDetailsPage() {
   const [selectedSize, setSelectedSize] = useState(null);
@@ -74,10 +74,16 @@ function ProductDetailsPage() {
       <Header />
       <main className="container py-4">
         {loading && (
-          <div className="text-center" style={{ minHeight: "80vh" }}>
-            <img src={loadingImg} alt="Loading Image" className="img-fluid" />
+          <div
+            className="w-100 h-100 py-5 d-flex justify-content-center"
+            style={{ minHeight: "80vh" }}
+          >
+            <div style={{ width: "35px", height: "35px" }}>
+              <img src={loadingImage} alt="loader" className="w-100 h-1" />
+            </div>
           </div>
         )}
+
         {error && (
           <p className="py-3 text-center text-danger">Something went wrong!</p>
         )}
@@ -161,7 +167,7 @@ function ProductDetailsPage() {
                     </button>
 
                     <input
-                      type="number"
+                      type="text"
                       min="1"
                       value={quantity}
                       readOnly

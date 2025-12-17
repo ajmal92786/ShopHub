@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
@@ -7,7 +8,8 @@ import useWishlistContext from "../contexts/WishlistContext";
 import useFilterContext from "../contexts/FilterContext";
 
 function Header() {
-  const { searchQuery, setSearchQuery } = useFilterContext();
+  const [inputValue, setInputValue] = useState();
+  const { setSearchQuery } = useFilterContext();
   const { cart } = useCartContext();
   const { wishlist } = useWishlistContext();
 
@@ -15,7 +17,11 @@ function Header() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    navigate(`/products/all?search=${searchQuery}`);
+
+    setSearchQuery(inputValue);
+    navigate(`/products/all?search=${inputValue}`);
+
+    setInputValue("");
   };
 
   return (
@@ -74,8 +80,8 @@ function Header() {
                 type="text"
                 className="form-control rounded-start shadow-none"
                 placeholder="Search for products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
               />
             </form>
 

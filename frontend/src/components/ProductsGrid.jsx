@@ -1,6 +1,7 @@
 import useFetch from "../hooks/useFetch";
 import useFilterContext from "../contexts/FilterContext";
 import ProductCard from "./ProductCard";
+import loadingImage from "../assets/modern_loader.webp";
 
 function ProductsGrid() {
   const { data, loading, error } = useFetch("/api/products");
@@ -48,7 +49,13 @@ function ProductsGrid() {
         <span>(Showing {filteredProducts.length} products)</span>
       </div>
 
-      {loading && <p>Products loading...</p>}
+      {loading && (
+        <div className="w-100 h-100 py-5 d-flex justify-content-center">
+          <div style={{ width: "30px", height: "30px" }}>
+            <img src={loadingImage} alt="loader" className="w-100 h-1" />
+          </div>
+        </div>
+      )}
 
       {!loading && filteredProducts.length === 0 && <p>No products found.</p>}
 
