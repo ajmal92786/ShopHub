@@ -11,36 +11,25 @@ function RatingFilter() {
     <div className="pt-3">
       <div className="fw-bold mb-2">Rating</div>
 
-      {[4, 3, 2, 1].map((rating) => {
-        const isChecked = selectedRating === rating;
-
-        return (
-          <div
-            key={rating}
-            className={`form-check d-flex align-items-center gap-2 p-2 rounded ${
-              isChecked ? "bg-light border border-primary" : ""
-            }`}
+      {[4, 3, 2, 1].map((rating) => (
+        <div className="form-check" key={rating}>
+          <input
+            type="radio"
+            name="ratingFilter"
+            id={`ratingFilter-${rating}`}
+            className="form-check-input"
+            value={rating}
+            checked={selectedRating === rating}
+            onChange={handleRatingChange}
+          />
+          <label
+            className="form-check-label"
+            htmlFor={`ratingFilter-${rating}`}
           >
-            <input
-              type="radio"
-              name="ratingFilter"
-              id={`ratingFilter-${rating}`}
-              className="form-check-input m-0"
-              value={rating}
-              checked={isChecked}
-              onChange={handleRatingChange}
-            />
-
-            <label
-              htmlFor={`ratingFilter-${rating}`}
-              className="form-check-label w-100"
-              style={{ cursor: "pointer" }}
-            >
-              {rating} Stars & above
-            </label>
-          </div>
-        );
-      })}
+            {rating} Stars & above
+          </label>
+        </div>
+      ))}
     </div>
   );
 }
