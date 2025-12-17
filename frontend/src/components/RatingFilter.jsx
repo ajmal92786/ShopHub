@@ -18,12 +18,15 @@ function RatingFilter() {
               type="radio"
               name="ratingFilter"
               id={`ratingFilter-${rating}`}
-              className="me-2"
+              className="form-check-input"
               value={rating}
               checked={selectedRating === rating}
               onChange={handleRatingChange}
             />
-            <label htmlFor={`ratingFilter-${rating}`}>
+            <label
+              className="form-check-label"
+              htmlFor={`ratingFilter-${rating}`}
+            >
               {rating} Stars & above
             </label>
           </div>

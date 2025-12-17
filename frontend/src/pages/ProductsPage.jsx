@@ -1,10 +1,10 @@
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import useFilterContext from "../contexts/FilterContext";
+import FiltersComponent from "../components/FiltersComponent";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ProductsGrid from "../components/ProductsGrid";
-import FiltersComponent from "../components/FiltersComponent";
+import useFilterContext from "../contexts/FilterContext";
+import { useEffect } from "react";
 
 function ProductsPage() {
   const { setSelectedCategories } = useFilterContext();
