@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CartItem from "../components/CartItem";
 import { TiShoppingCart } from "react-icons/ti";
-import loadingImg from "../assets/loadingImage.gif";
+import loadingImg from "../assets/modern_loader.webp";
 import PriceDetails from "../components/PriceDetails";
 
 function CartPage() {

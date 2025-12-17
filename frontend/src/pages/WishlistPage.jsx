@@ -1,7 +1,7 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import useWishlistContext from "../contexts/WishlistContext";
-import loadingImg from "../assets/loadingImage.gif";
+import loadingImg from "../assets/modern_loader.webp";
 import WishlistItem from "../components/WishlistItem";
 import { TbShoppingBagHeart } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";

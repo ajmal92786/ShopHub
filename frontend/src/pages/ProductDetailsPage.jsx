@@ -13,7 +13,7 @@ import useCartContext from "../contexts/CartContext";
 import useToastContext from "../contexts/ToastContext";
 import { calculatePriceAfterDiscount } from "../utils/utils";
 import useWishlistContext from "../contexts/WishlistContext";
-import loadingImg from "../assets/loadingImage.gif";
+import loadingImg from "../assets/modern_loader.webp";
 
 function ProductDetailsPage() {
   const [selectedSize, setSelectedSize] = useState(null);

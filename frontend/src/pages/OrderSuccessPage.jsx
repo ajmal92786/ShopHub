@@ -1,14 +1,19 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaCheckCircle } from "react-icons/fa";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { FaCheckCircle } from "react-icons/fa";
 import useUserContext from "../contexts/UserContext";
-import { useEffect, useState } from "react";
 import AddressItem from "../components/AddressItem";
 import useCartContext from "../contexts/CartContext";
+import loadingImage from "../assets/modern_loader.webp";
 
 function OrderSuccessPage() {
   const [orderDetails, setOrderDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [hasFetched, setHasFetched] = useState(false);
+
   const { userInfo } = useUserContext();
   const { deliveryCharges } = useCartContext();
 
@@ -27,41 +32,59 @@ function OrderSuccessPage() {
   };
 
   const fetchOrderDetails = async () => {
-    if (!userInfo?._id) {
-      return;
-    }
-
-    if (!orderId) {
+    if (!userInfo?._id || !orderId) {
       return;
     }
 
     try {
+      setLoading(true);
+      setError(null);
+
       const res = await fetch(
         `${BASE_URL}/api/orders/${orderId}?userId=${userInfo._id}`
       );
       const json = await res.json();
 
       if (!res.ok) {
-        throw new Error(
-          json.message || json.error || "Erorr in fetching order"
-        );
+        throw new Error(json.message || json.error || "Failed to fetch order");
       }
 
-      setOrderDetails(json?.data.order);
+      setOrderDetails(json?.data?.order);
     } catch (error) {
-      console.log("error: ", error);
+      setError(error.message || error.error);
+    } finally {
+      setLoading(false);
+      setHasFetched(true);
     }
   };
 
   useEffect(() => {
     fetchOrderDetails();
-  }, [userInfo?._id]);
+  }, [userInfo?._id, orderId]);
 
   return (
     <>
       <Header />
       <main className="bg-light py-4" style={{ minHeight: "85vh" }}>
-        {orderDetails ? (
+        {loading && (
+          <div className="my-5 d-flex justify-content-center">
+            <div style={{ width: "60px", height: "60px" }}>
+              <img src={loadingImage} alt="loader" className="w-100 h-100" />
+            </div>
+          </div>
+        )}
+
+        {!loading && error && (
+          <div className="text-center">
+            <p className="text-danger fw-seibold fs-5">Something went wrong!</p>
+          </div>
+        )}
+
+        {!loading && !error && !orderDetails && hasFetched && (
+          <div className="text-center py-5 fw-semibold">Order not found</div>
+        )}
+
+        {!loading && !error && orderDetails && (
           <div className="container py-3 col-12 col-md-6 bg-white">
             <section className="text-center">
               <div className="py-3 text-success">
@@ -154,8 +177,6 @@ function OrderSuccessPage() {
               </button>
             </div>
           </div>
-        ) : (
-          <div>Order not found</div>
         )}
       </main>
       <Footer />

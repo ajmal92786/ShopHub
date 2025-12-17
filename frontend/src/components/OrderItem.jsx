@@ -1,4 +1,6 @@
 function OrderItem({ order }) {
+  console.log(order);
+
   function calculateDateAndTime(placedAt) {
     const date = new Date(placedAt);
 
