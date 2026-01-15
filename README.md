@@ -6,9 +6,9 @@ Built with a **React frontend**, **Node.js/Express backend**, and **MongoDB data
 
 ---
 
-## 🌐 Live Demo
+## 🌐 Demo Link
 
-🔗 **Live App:** [https://shophub-app-eac27.vercel.app/](https://shophub-app-eac27.vercel.app/)
+🔗 [Live Demo](https://shophub-app-eac27.vercel.app/)
 
 ---
 
@@ -86,7 +86,7 @@ http://localhost:3000
 
 A 5–7 minute walkthrough covering all major features:
 
-🔗 [https://drive.google.com/file/d/1tsstIGfav5EpQYDfe6uc7FdqAiRkDCaw/view](https://drive.google.com/file/d/1tsstIGfav5EpQYDfe6uc7FdqAiRkDCaw/view)
+🔗 [Video Link](https://drive.google.com/file/d/1tsstIGfav5EpQYDfe6uc7FdqAiRkDCaw/view)
 
 ---
 
