@@ -126,6 +126,30 @@ A 5–7 minute walkthrough covering all major features:
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](./screenshots/home.png)
+
+### Product Listing
+
+![Product Listing](./screenshots/product-list.png)
+
+### Product Details
+
+![Product Details](./screenshots/product-detail.png)
+
+### Cart
+
+![Cart](./screenshots/cart.png)
+
+### Checkout
+
+![Checkout](./screenshots/checkout.png)
+
+---
+
 ## 🛠 Tech Stack
 
 ### Frontend
